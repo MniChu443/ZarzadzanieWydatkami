@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ZarzadzanieWydatkami.Client/ZarzadzanieWydatkami.Client.csproj" />
+  <Project Path="ZarzadzanieWydatkami.Serer/ZarzadzanieWydatkami.Server.csproj" />
+  <Project Path="ZarzadzanieWydatkami.Shared/ZarzadzanieWydatkami.Shared.csproj" />
+  <Project Path="ZarzadzanieWydatkami.Tests/ZarzadzanieWydatkami.Tests.csproj" />
+</Solution>

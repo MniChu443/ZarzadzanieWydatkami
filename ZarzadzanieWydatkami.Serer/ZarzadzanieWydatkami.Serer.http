@@ -1,0 +1,6 @@
+@ZarzadzanieWydatkami.Serer_HostAddress = http://localhost:5249
+
+GET {{ZarzadzanieWydatkami.Serer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

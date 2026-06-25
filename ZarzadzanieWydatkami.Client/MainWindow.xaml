@@ -5,8 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZarzadzanieWydatkami.Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Zarządzanie Wydatkami" Height="450" Width="800">
 
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <Button Content="Pobierz z serwera" Command="{Binding PobierzWydatkiCommand}" Margin="5" Padding="10,5" />
+            <Button Content="Dodaj Wydatek" Command="{Binding DodajWydatekCommand}" Margin="5" Padding="10,5"/>
+            <Button Content="Zapisz do bazy" Command="{Binding ZapiszWydatekCommand}" Margin="5" Padding="10,5" />
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="15,0" />
+
+            <TextBox Text="{Binding NowaKategoriaTekst, UpdateSourceTrigger=PropertyChanged}" Width="120" Margin="5" VerticalAlignment="Center" Padding="5"/>
+            <Button Content="Dodaj Kategorię" Command="{Binding DodajKategorieCommand}" Margin="5" Padding="10,5"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Wydatki}" 
+                  SelectedItem="{Binding WybranyWydatek}" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="50"/>
+                <DataGridTextColumn Header="Tytuł" Binding="{Binding Tytul, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridTextColumn Header="Kwota (PLN)" Binding="{Binding Kwota, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+
+                <DataGridTemplateColumn Header="Kategoria" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Kategoria}" Padding="4" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox SelectedItem="{Binding Kategoria, UpdateSourceTrigger=PropertyChanged}" 
+                                      ItemsSource="{Binding DataContext.Kategorie, RelativeSource={RelativeSource AncestorType=Window}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Data" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Data, StringFormat=\{0:dd.MM.yyyy\}}" Padding="4" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Data, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

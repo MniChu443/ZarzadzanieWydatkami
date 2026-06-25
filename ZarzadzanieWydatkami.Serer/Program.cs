@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// === AUTOMATYCZNE GENEROWANIE GOTOWYCH DANYCH (DATA SEEDING) ===
+// Generowanie Danych 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

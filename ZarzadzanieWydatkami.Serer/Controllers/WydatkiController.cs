@@ -46,5 +46,23 @@ namespace ZarzadzanieWydatkami.Server.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        // Metoda DELETE - usuwa wydatek z bazy danych
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> UsunWydatek(int id)
+        {
+            // Szukamy wydatku o podanym ID
+            var wydatek = await _context.Wydatki.FindAsync(id);
+            if (wydatek == null)
+            {
+                return NotFound(); // Zwraca błąd 404, jeśli nie ma takiego wydatku
+            }
+
+            // Usuwamy i zapisujemy zmiany na dysku
+            _context.Wydatki.Remove(wydatek);
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // Sukces, brak danych do zwrócenia (204)
+        }
     }
 }
